@@ -23,10 +23,15 @@ bot.event("file_shared", async ({ event, say }) => {
     console.log(event);
     if (event.channel_id === channelId) {
         await say("Hello, nice image");
-        const imageUrl = await request(event.file_id);
-        await downloadImage(imageUrl);
+
+        await getImage(event.file_id);
     }
 });
+
+const getImage = async (fileID) => {
+    const imageUrl = await request(fileID);
+    await downloadImage(imageUrl);
+};
 
 const request = async (fileID) => {
     var config = {
